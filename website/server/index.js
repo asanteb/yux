@@ -14,14 +14,14 @@ app.get('/', (req, res) => {
 // TODO: REMOVE
 // Find another solution instead of checking in certs and keys.
 
-// https.createServer({
-//   key: fs.readFileSync('./ssl/key.pem'),
-//   cert: fs.readFileSync('./ssl/cert.pem'),
-//   passphrase: 'yux-site'
-// }, app).listen(443)
+https.createServer({
+  key: fs.readFileSync('./ssl/key.pem'),
+  cert: fs.readFileSync('./ssl/cert.pem'),
+  passphrase: 'yux-site'
+}, app).listen(443)
 
 // http.createServer(app).listen(80)
 
-app.listen(80, () => {
-  console.log(`Example app listening at http://localhost:80`)
-})
+// app.listen(80, () => {
+//   console.log(`Example app listening at http://localhost:80`)
+// })
