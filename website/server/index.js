@@ -1,5 +1,6 @@
 const express = require('express')
 const https = require('https');
+const http = require('http');
 const fs = require('fs');
 const path = require('path');
 const app = express()
@@ -13,10 +14,10 @@ app.get('/', (req, res) => {
 // TODO: REMOVE
 // Find another solution instead of checking in certs and keys.
 
-https.createServer({
-  key: fs.readFileSync('./ssl/key.pem'),
-  cert: fs.readFileSync('./ssl/cert.pem'),
-  passphrase: 'yux-site'
-}, app).listen(443)
+// https.createServer({
+//   key: fs.readFileSync('./ssl/key.pem'),
+//   cert: fs.readFileSync('./ssl/cert.pem'),
+//   passphrase: 'yux-site'
+// }, app).listen(443)
 
 https.createServer(app).listen(80)
