@@ -10,6 +10,7 @@ const SSL_OPTIONS = {
   ca: fs.readFileSync('./ssl/ca.pem'),
   key: fs.readFileSync('./ssl/key.pem'),
   cert: fs.readFileSync('./ssl/cert.pem'),
+  passphrase: 'G9iLAmurZ3FH9wm'
 };
 
 app.get('/', (req, res) => {
