@@ -24,10 +24,3 @@ app.get('/', (req, res) => {
 
 http.createServer(app).listen(80, () => console.log('listening on port :' + 80));
 https.createServer(SSL_OPTIONS, app).listen(443, () => console.log('listening on port :' + 443));
-
-server.listen(port1, function(){
-  console.log('listening on *:',port1);
-});
-server.listen(port1, function(){
-  console.log('listening on *:',port1);
-});
