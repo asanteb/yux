@@ -6,6 +6,14 @@ const path = require('path');
 const app = express()
 const dist = path.join(__dirname + '/dist');
 
+const SSL_OPTIONS = {
+  key: fs.readFileSync('./ssl/key.pem'),
+  cert: fs.readFileSync('./ssl/cert.pem'),
+  requestCert: false,
+  rejectUnauthorized: false,
+  passphrase: 'yux-site'
+};
+
 app.get('/', (req, res) => {
   res.sendFile(dist + '/index.html')
 })
@@ -14,14 +22,12 @@ app.get('/', (req, res) => {
 // TODO: REMOVE
 // Find another solution instead of checking in certs and keys.
 
-https.createServer({
-  key: fs.readFileSync('./ssl/key.pem'),
-  cert: fs.readFileSync('./ssl/cert.pem'),
-  passphrase: 'yux-site'
-}, app).listen(443)
+http.createServer(app).listen(80, () => console.log('listening on port :' + 80));
+https.createServer(SSL_OPTIONS, app).listen(443, () => console.log('listening on port :' + 443));
 
-// http.createServer(app).listen(80)
-
-// app.listen(80, () => {
-//   console.log(`Example app listening at http://localhost:80`)
-// })
+server.listen(port1, function(){
+  console.log('listening on *:',port1);
+});
+server.listen(port1, function(){
+  console.log('listening on *:',port1);
+});
