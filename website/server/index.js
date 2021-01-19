@@ -22,4 +22,4 @@ app.get('/', (req, res) => {
 // Find another solution instead of checking in certs and keys.
 
 http.createServer(app).listen(80, () => console.log('listening on port :' + 80));
-https.createServer(SSL_OPTIONS, app).listen(443, () => console.log('listening on port :' + 443));
+https.createServer(app).listen(443, () => console.log('listening on port :' + 443));
