@@ -29,16 +29,6 @@ jobs:
         run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
         id: extract_branch
 
-      - name: Test Output
-        run: echo ${{ steps.extract_branch.outputs.branch }}
-
-#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-#       - uses: actions/checkout@v2
-
-#       # Runs a single command using the runners shell
-#       - name: Run a one-line script
-#         run: echo Hello, world!
-
       # Runs a set of commands using the runners shell
       - name: Access AWS EC2
         uses: appleboy/ssh-action@master
@@ -50,4 +40,4 @@ jobs:
           script: |
             zsh
             cd ~/yux-deployment
-            touch ${{ steps.extract_branch.outputs.branch }}.poo
+            ./update-environment.sh ${{ steps.extract_branch.outputs.branch }}
