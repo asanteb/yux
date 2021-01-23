@@ -1,23 +1,23 @@
 const express = require('express')
-const https = require('https');
-const http = require('http');
-const fs = require('fs');
 const path = require('path');
 const app = express()
 const dist = path.join(__dirname + '/dist');
 
-const SSL_OPTIONS = {
-  key: fs.readFileSync('./ssl/key.pem'),
-  cert: fs.readFileSync('./ssl/cert.pem'),
+const environment = process.env.NODE_ENV;
+
+const PORTS = {
+  prod: 3000,
+  dev: 3001,
+  test: 3002,
+  latest: 3003
 };
+
+const PORT = PORTS[environment];
 
 app.get('/', (req, res) => {
   res.sendFile(dist + '/index.html')
-})
+});
 
-
-// TODO: REMOVE
-// Find another solution instead of checking in certs and keys.
-
-http.createServer(app).listen(80, () => console.log('listening on port :' + 80));
-https.createServer(SSL_OPTIONS, app).listen(443, () => console.log('listening on port :' + 443));
+app.listen(PORT, () => {
+  console.log(`listening on port :${PORT}`)
+});
