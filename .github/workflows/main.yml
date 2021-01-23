@@ -47,7 +47,7 @@ jobs:
           username: ${{ secrets.YUX_AWS_USERNAME }}
           key: ${{ secrets.YUX_AWS_SSH }}
           port: 22
-        run: |
-          zsh
-          cd ~/yux-deployment
-          touch ${{ steps.extract_branch.outputs.branch }}.poo
+          script: |
+            zsh
+            cd ~/yux-deployment
+            touch ${{ steps.extract_branch.outputs.branch }}.poo
