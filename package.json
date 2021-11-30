@@ -1,0 +1,19 @@
+{
+  "name": "yux",
+  "version": "1.0.0",
+  "description": "Realtime Collaboration",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/asanteb/yux.git"
+  },
+  "author": "Asante Buil",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/asanteb/yux/issues"
+  },
+  "homepage": "https://github.com/asanteb/yux#readme"
+}
