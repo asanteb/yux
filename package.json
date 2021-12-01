@@ -1,19 +1,19 @@
 {
   "name": "yux",
   "version": "1.0.0",
-  "description": "Realtime Collaboration",
+  "description": "Awesome Realtime Collaboration",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "repository": "git@github.com:asanteb/yux.git",
+  "author": "asanteb <asante@geekenforcer.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.0.1",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "parcel": "^2.0.1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/asanteb/yux.git"
-  },
-  "author": "Asante Buil",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/asanteb/yux/issues"
-  },
-  "homepage": "https://github.com/asanteb/yux#readme"
+  "dependencies": {
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
+  }
 }
