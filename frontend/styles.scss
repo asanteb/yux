@@ -1,3 +1,29 @@
+h1 {
+  margin: 0 !important;
+}
+
+.main-header {
+  width: 100%;
+  padding: 8px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid;
+}
+
+.source-code-link {
+  color: unset;
+}
+
+.source-code-link:hover {
+  cursor: pointer;
+  color: #ffa76c;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}
+
 #video-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, 300px);
