@@ -10,6 +10,15 @@ h1 {
   border-bottom: 1px solid;
 }
 
+.room {
+  padding: 10px;
+}
+
+.room-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
 .source-code-link {
   color: unset;
 }

@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
-import { Text, Figure } from "@arwes/core";
+import { Text } from "@arwes/core";
 
-const App = () => {
+const Header = () => {
   return (
     <div className="main-header">
       <Text as="h1" animator={{ manager: "stagger" }}>
@@ -22,4 +21,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default Header;
