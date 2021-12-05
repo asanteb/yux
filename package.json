@@ -4,6 +4,7 @@
   "description": "Awesome Realtime Collaboration",
   "main": "index.js",
   "repository": "git@github.com:asanteb/yux.git",
+  "source": "frontend/index.html",
   "author": "asanteb <asante@geekenforcer.com>",
   "license": "MIT",
   "scripts": {
