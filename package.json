@@ -6,6 +6,10 @@
   "repository": "git@github.com:asanteb/yux.git",
   "author": "asanteb <asante@geekenforcer.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "parcel",
+    "build": "parcel build"
+  },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.0.1",
     "@types/react": "^17.0.37",
