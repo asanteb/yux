@@ -16,6 +16,10 @@ app.get("/", (req, res) => {
   res.sendFile(dist + "/index.html");
 });
 
+app.get("/room", (req, res) => {
+  res.sendFile(dist + "/index.html");
+});
+
 const state = {
   users: [],
   rooms: [],
