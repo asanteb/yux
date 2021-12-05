@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Text, Button, FrameBox } from "@arwes/core";
+import { Text } from "@arwes/core";
 import ReactModal from "react-modal";
 import NewProfileConfig from "./NewProfileConfig";
 import { view } from "@risingstack/react-easy-state";
@@ -25,10 +25,16 @@ const Header = () => {
     setProfileModal(false);
   };
 
+  const goHome = () => {
+    window.location.href = "/";
+  };
+
   return (
     <div className="main-header">
       <Text as="h1" animator={{ manager: "stagger" }}>
-        yux.watch
+        <span className="link" onClick={() => goHome()}>
+          yux.watch
+        </span>
       </Text>
       <div className="vertical-center">
         <a

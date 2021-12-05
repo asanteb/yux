@@ -2,6 +2,9 @@ import { store } from "@risingstack/react-easy-state";
 import { io } from "socket.io-client";
 import { v4 as uuid } from "uuid";
 import ls from "local-storage";
+import ShortUniqueId from "short-unique-id";
+
+const shortUid = new ShortUniqueId({ length: 10 });
 
 const URL =
   window.location.hostname === "localhost"
@@ -16,8 +19,8 @@ export default store({
   newUser: false,
   userToken: "",
   uniquePresence: "",
+  roomConfig: {},
   socket: io(URL),
-  // peer: new Peer(),
 
   initProfile() {
     let uniquePresence = ls.get("uniquePresence");
@@ -25,6 +28,10 @@ export default store({
 
     if (!userToken || !uniquePresence) {
       this.newUser = true;
+    }
+
+    if (userToken) {
+      this.userToken = userToken;
     }
 
     if (!userToken) {
@@ -56,5 +63,16 @@ export default store({
     ls.set("name", name);
     ls.set("avatar", avatar);
     this.newUser = false;
+  },
+
+  createRoom({ name, description, image }) {
+    this.roomConfig.name = name;
+    this.roomConfig.description = description;
+    this.roomConfig.image = image;
+    this.roomConfig.id = shortUid();
+  },
+
+  clearRoomConfig() {
+    this.roomConfig = {};
   },
 });

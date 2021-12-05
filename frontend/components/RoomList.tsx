@@ -1,6 +1,15 @@
 import { Text, Card, Button } from "@arwes/core";
+import { useNavigate } from "react-router-dom";
 
 export const RoomItem = ({ id, img, name, description }) => {
+  let navigate = useNavigate();
+
+  const joinRoom = () => {
+    navigate({
+      pathname: "/room",
+      search: `?id=${id}`,
+    });
+  };
   return (
     <div className="room">
       <Card
@@ -11,7 +20,7 @@ export const RoomItem = ({ id, img, name, description }) => {
         }}
         title={name}
         options={
-          <Button palette="secondary">
+          <Button palette="secondary" onClick={() => joinRoom()}>
             <Text>join Room</Text>
           </Button>
         }
@@ -29,7 +38,8 @@ const RoomList = ({ list = [] }) => {
       {list.map((room) => (
         <RoomItem
           id={room.id}
-          img={room.img}
+          key={room.id}
+          img={room.image}
           name={room.name}
           description={room.description}
         />

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { Text, Card, Button, FrameBox } from "@arwes/core";
+import { Text, Card, Button } from "@arwes/core";
+import { useNavigate } from "react-router-dom";
 import {
   randomRoomImageGenerator,
   encodeImageFileAsURL,
@@ -9,8 +10,10 @@ import {
   randomRoomNameGenerator,
   randomDescriptionGenerator,
 } from "../modules/text-generator";
+import appStore from "../store";
 
 const NewRoomConfig = ({ close }) => {
+  let navigate = useNavigate();
   const [roomName, setRoomName] = useState("");
   const [description, setDescription] = useState("");
   const [roomImage, setRoomImage] = useState(randomRoomImageGenerator());
@@ -24,6 +27,15 @@ const NewRoomConfig = ({ close }) => {
     setRoomName(randomRoomNameGenerator());
     setDescription(randomDescriptionGenerator());
     setRoomImage(randomRoomImageGenerator());
+  };
+
+  const create = () => {
+    appStore.createRoom({
+      name: roomName,
+      description,
+      image: roomImage,
+    });
+    navigate(`/room?id=${appStore.roomConfig.id}`);
   };
 
   return (
@@ -43,7 +55,7 @@ const NewRoomConfig = ({ close }) => {
             <Button palette="secondary" onClick={() => generate()}>
               <Text>Generate</Text>
             </Button>
-            <Button palette="success">
+            <Button palette="success" onClick={() => create()}>
               <Text>Create Room</Text>
             </Button>
           </div>

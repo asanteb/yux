@@ -22,11 +22,26 @@ const state = {
   sockets: [],
 };
 
-const webPresence = (socket) => {
+const webPresence = (socket = {}) => {
   return {
     userId: socket.id,
-    rooms: state.rooms.filter((v) => !v.private),
+    rooms: state.rooms
+      .filter((v) => !v.private)
+      .map((room) => ({ ...room, users: room.users.map((v) => v.peerId) })),
   };
+};
+
+const roomPresence = (roomId, socket) => {
+  const room = state.rooms.find((v) => v.id === roomId);
+
+  if (!room) {
+    return socket.emit("error", "Room does not exist!");
+  }
+
+  socket.emit("room-presence", {
+    ...room,
+    users: room.users.map((v) => v.peerId),
+  });
 };
 
 const updateSockets = (socket, remove) => {
@@ -62,20 +77,91 @@ const updateUsers = ({ userToken, socketId, uniquePresence, remove }) => {
     : state.users.push(newUserObj);
 };
 
+const joinHandler = ({
+  id,
+  action,
+  socket,
+  peerId,
+  userToken,
+  name,
+  description,
+  image,
+  io,
+}) => {
+  if (action === "create") {
+    if (state.rooms.find((v) => v.id === id)) {
+      return socket.emit("error", "Room already exists!");
+    }
+    const user = state.users.find((v) => v.userToken === userToken);
+    state.rooms.push({
+      id,
+      users: [{ ...user, peerId }],
+      name,
+      image,
+      description,
+    });
+    io.emit("web-presence", webPresence());
+  } else if (action === "join") {
+    const roomIdx = state.rooms.findIndex((v) => v.id === id);
+    if (roomIdx === -1) {
+      return socket.emit("error", "Room does not exist!");
+    }
+    const room = state.rooms[roomIdx];
+    const user = state.users.find((v) => v.userToken === userToken);
+    const roomUsers = [...room.users];
+    roomUsers.push({ ...user, peerId });
+    state.rooms.splice(roomIdx, 1, { ...room, users: roomUsers });
+  }
+  console.log(`${socket.id} connected to room:`, id);
+};
+
+const removeUserFromRoom = (id, userToken, io) => {
+  const roomIdx = state.rooms.findIndex((v) => v.id === id);
+
+  if (roomIdx === -1) {
+    console.log("Cannot remove user from room that does not exist!");
+    return;
+  }
+
+  const room = state.rooms[roomIdx];
+  const userIdx = room.users.findIndex((v) => v.userToken === userToken);
+
+  const users = room.users.filter((_, idx) => idx !== userIdx);
+
+  if (users.length) {
+    state.rooms.splice(roomIdx, 1, {
+      ...room,
+      users,
+    });
+  } else {
+    state.rooms.splice(roomIdx, 1);
+    console.log("Room has been deleted due to no users");
+  }
+  io.emit("web-presence", webPresence());
+};
+
 io.on("connection", (socket) => {
   updateSockets(socket);
   console.log("New connection: ", socket.id);
 
   socket.emit("web-presence", webPresence(socket));
-  socket.on("join-room", (roomId, userId) => {
-    socket.join(roomId);
-    socket.to(roomId).emit("user-connected", userId);
+  socket.on("join-room", (payload) => {
+    const room = state.rooms.find((v) => v.id === payload.id);
 
-    console.log(`${userId} connected to room:`, roomId);
+    if (room?.users.find((v) => v.socketId === socket.id)) {
+      console.log("User has already joined the room.");
+      return;
+    }
+
+    joinHandler({ ...payload, socket, io });
+    roomPresence(payload.id, socket);
+    socket.join(payload.id);
+    socket.to(payload.id).emit("user-connected", payload.peerId);
 
     socket.on("disconnect", () => {
-      console.log(`User: ${socket.id} left room: ${roomId}`);
-      socket.to(roomId).emit("user-disconnected", userId);
+      socket.to(payload.id).emit("user-disconnected", payload.peerId);
+      removeUserFromRoom(payload.id, payload.userToken, io);
+      console.log(`User: ${socket.id} left room: ${payload.id}`);
     });
   });
 
