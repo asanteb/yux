@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "yux-dev",
-      script: "index.js",
+      script: "server.js",
       watch: true,
       env: {
         NODE_ENV: "dev",
@@ -10,7 +10,7 @@ module.exports = {
     },
     {
       name: "yux-prod",
-      script: "index.js",
+      script: "server.js",
       watch: false,
       env: {
         NODE_ENV: "prod",
@@ -18,7 +18,7 @@ module.exports = {
     },
     {
       name: "yux-test",
-      script: "index.js",
+      script: "server.js",
       watch: false,
       env: {
         NODE_ENV: "test",
@@ -26,7 +26,7 @@ module.exports = {
     },
     {
       name: "yux-latest",
-      script: "index.js",
+      script: "server.js",
       watch: false,
       env: {
         NODE_ENV: "latest",
