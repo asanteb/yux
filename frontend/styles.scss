@@ -2,6 +2,20 @@ h1 {
   margin: 0 !important;
 }
 
+body,
+#app {
+  height: 100vh;
+}
+
+.homepage {
+  height: calc(100vh - 53.39px);
+}
+
+.new-room-config .arwes-card__children,
+.new-profile-config .arwes-card__children {
+  z-index: 10;
+}
+
 .main-header {
   width: 100%;
   padding: 8px;
@@ -10,6 +24,21 @@ h1 {
   border-bottom: 1px solid;
 }
 
+.ReactModal__Content {
+  box-shadow: 1px 1px 6px 0px black !important;
+}
+
+.ReactModal__Overlay {
+  background-color: rgb(5 47 55 / 40%) !important;
+}
+
+.homepage {
+  padding: 24px;
+}
+.create-room-action {
+  display: flex;
+  justify-content: center;
+}
 .room {
   padding: 10px;
 }

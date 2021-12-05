@@ -544,6 +544,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@nx-js/observer-util@npm:^4.2.2":
+  version: 4.2.2
+  resolution: "@nx-js/observer-util@npm:4.2.2"
+  checksum: b4654b00e3740a6905f6e18985e84297f321c3ca893dc8159d910c8bcccf09fd2d59a624c346b4e31285eedb9f3d838e6b5077e6a77517898ddb8c659e69c0e0
+  languageName: node
+  linkType: hard
+
 "@parcel/babel-ast-utils@npm:^2.0.1":
   version: 2.0.1
   resolution: "@parcel/babel-ast-utils@npm:2.0.1"
@@ -1330,6 +1337,17 @@ __metadata:
   peerDependencies:
     "@parcel/core": ^2.0.0
   checksum: 656b6531539b0d1e011048122b3c590ce46c43a68e41c3bb2e0e3acd5501005df148674747d75b4cd4f809db67a07a000ccc355b076814454291c536141c1494
+  languageName: node
+  linkType: hard
+
+"@risingstack/react-easy-state@npm:^6.3.0":
+  version: 6.3.0
+  resolution: "@risingstack/react-easy-state@npm:6.3.0"
+  dependencies:
+    "@nx-js/observer-util": ^4.2.2
+  peerDependencies:
+    react: "*"
+  checksum: 0fe5c0307e23ce271641aa3b2ed62e57b93a272daecc9c1ec1d7b6a9d52d89f6a6a253a6c404bc2eaf322259ef8640c13a8f782d0cf7b50feb59a8cddddfed84
   languageName: node
   linkType: hard
 
@@ -3296,6 +3314,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"exenv@npm:^1.2.0":
+  version: 1.2.2
+  resolution: "exenv@npm:1.2.2"
+  checksum: a894f3b60ab8419e0b6eec99c690a009c8276b4c90655ccaf7d28faba2de3a6b93b3d92210f9dc5efd36058d44f04098f6bbccef99859151104bfd49939904dc
+  languageName: node
+  linkType: hard
+
 "express@npm:^4.17.1":
   version: 4.17.1
   resolution: "express@npm:4.17.1"
@@ -4619,6 +4644,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"jwt-simple@npm:^0.5.6":
+  version: 0.5.6
+  resolution: "jwt-simple@npm:0.5.6"
+  checksum: fa10ffd655d558c4063d426e7624397db51eddb0aae8c16fbbd4eb9e4e179f38feb0bbb854283f0d0051054f69835eba4d70844c8f528b89736370571999655d
+  languageName: node
+  linkType: hard
+
 "levn@npm:~0.3.0":
   version: 0.3.0
   resolution: "levn@npm:0.3.0"
@@ -4665,6 +4697,13 @@ __metadata:
     emojis-list: ^3.0.0
     json5: ^1.0.1
   checksum: d150b15e7a42ac47d935c8b484b79e44ff6ab4c75df7cc4cb9093350cf014ec0b17bdb60c5d6f91a37b8b218bd63b973e263c65944f58ca2573e402b9a27e717
+  languageName: node
+  linkType: hard
+
+"local-storage@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "local-storage@npm:2.0.0"
+  checksum: 921f381cafc4c0cac263a87e9e11093adf0bfb13b3520107bb5065bbccf5e7d22eea81148a40bc10d9f44aba8a5afe0157183205714d0221e02e36cb8afaa70b
   languageName: node
   linkType: hard
 
@@ -4720,7 +4759,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"loose-envify@npm:^1.1.0":
+"loose-envify@npm:^1.0.0, loose-envify@npm:^1.1.0, loose-envify@npm:^1.4.0":
   version: 1.4.0
   resolution: "loose-envify@npm:1.4.0"
   dependencies:
@@ -6128,6 +6167,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"prop-types@npm:^15.7.2":
+  version: 15.7.2
+  resolution: "prop-types@npm:15.7.2"
+  dependencies:
+    loose-envify: ^1.4.0
+    object-assign: ^4.1.1
+    react-is: ^16.8.1
+  checksum: 5eef82fdda64252c7e75aa5c8cc28a24bbdece0f540adb60ce67c205cf978a5bd56b83e4f269f91c6e4dcfd80b36f2a2dec24d362e278913db2086ca9c6f9430
+  languageName: node
+  linkType: hard
+
 "proxy-addr@npm:~2.0.5":
   version: 2.0.7
   resolution: "proxy-addr@npm:2.0.7"
@@ -6287,10 +6337,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-is@npm:^16.7.0":
+"react-is@npm:^16.7.0, react-is@npm:^16.8.1":
   version: 16.13.1
   resolution: "react-is@npm:16.13.1"
   checksum: f7a19ac3496de32ca9ae12aa030f00f14a3d45374f1ceca0af707c831b2a6098ef0d6bdae51bd437b0a306d7f01d4677fcc8de7c0d331eb47ad0f46130e53c5f
+  languageName: node
+  linkType: hard
+
+"react-lifecycles-compat@npm:^3.0.0":
+  version: 3.0.4
+  resolution: "react-lifecycles-compat@npm:3.0.4"
+  checksum: a904b0fc0a8eeb15a148c9feb7bc17cec7ef96e71188280061fc340043fd6d8ee3ff233381f0e8f95c1cf926210b2c4a31f38182c8f35ac55057e453d6df204f
+  languageName: node
+  linkType: hard
+
+"react-modal@npm:^3.14.4":
+  version: 3.14.4
+  resolution: "react-modal@npm:3.14.4"
+  dependencies:
+    exenv: ^1.2.0
+    prop-types: ^15.7.2
+    react-lifecycles-compat: ^3.0.0
+    warning: ^4.0.3
+  peerDependencies:
+    react: ^0.14.0 || ^15.0.0 || ^16 || ^17
+    react-dom: ^0.14.0 || ^15.0.0 || ^16 || ^17
+  checksum: 71457de902d45de390932fb68380c4a72fcd51e64faaf8b96138c3cb402d2e445002220560614ef6035eb349ff933bcbbe35c4cb85fb66c1129e65ad40336b8b
   languageName: node
   linkType: hard
 
@@ -7477,6 +7549,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"warning@npm:^4.0.3":
+  version: 4.0.3
+  resolution: "warning@npm:4.0.3"
+  dependencies:
+    loose-envify: ^1.0.0
+  checksum: 4f2cb6a9575e4faf71ddad9ad1ae7a00d0a75d24521c193fa464f30e6b04027bd97aa5d9546b0e13d3a150ab402eda216d59c1d0f2d6ca60124d96cd40dfa35c
+  languageName: node
+  linkType: hard
+
 "wcwidth@npm:^1.0.1":
   version: 1.0.1
   resolution: "wcwidth@npm:1.0.1"
@@ -7726,6 +7807,7 @@ __metadata:
     "@emotion/css": 11
     "@emotion/react": 11
     "@parcel/transformer-sass": ^2.0.1
+    "@risingstack/react-easy-state": ^6.3.0
     "@types/animejs": 3
     "@types/howler": 2.2
     "@types/react": ^17.0.37
@@ -7735,11 +7817,14 @@ __metadata:
     animejs: 3
     express: ^4.17.1
     howler: 2.2
+    jwt-simple: ^0.5.6
+    local-storage: ^2.0.0
     parcel: ^2.0.1
     peerjs: ^1.3.2
     polished: 4
     react: ^17.0.2
     react-dom: ^17.0.2
+    react-modal: ^3.14.4
     react-router-dom: ^6.0.2
     socket.io: ^4.4.0
     socket.io-client: ^4.4.0

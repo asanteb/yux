@@ -1,6 +1,6 @@
 import { Text, Card, Button } from "@arwes/core";
 
-export const Room = ({ id, img, name, description }) => {
+export const RoomItem = ({ id, img, name, description }) => {
   return (
     <div className="room">
       <Card
@@ -27,7 +27,7 @@ const RoomList = ({ list = [] }) => {
   return (
     <div className="room-list">
       {list.map((room) => (
-        <Room
+        <RoomItem
           id={room.id}
           img={room.img}
           name={room.name}

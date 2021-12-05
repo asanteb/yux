@@ -1,100 +1,65 @@
 import { useState, useEffect } from "react";
-import Peer from "peerjs";
-import { io } from "socket.io-client";
-import { v4 as uuid } from "uuid";
+import { Text, Button } from "@arwes/core";
+import ReactModal from "react-modal";
+import RoomList from "./components/RoomList";
+import NewRoomConfig from "./components/NewRoomConfig";
+import NewProfileConfig from "./components/NewProfileConfig";
+import { view } from "@risingstack/react-easy-state";
+import appStore from "./store";
 
-const App = () => {
-  const [roomId, setRoom] = useState("");
-  const [joinRoomId, setJoinRoomId] = useState("");
+const customStyles = {
+  content: {
+    width: "400px",
+    padding: "0px",
+    position: "unset",
+    border: "unset",
+    inset: "50% auto auto 50%",
+    margin: "0 auto",
+    transform: "translateY(30vh)",
+    backgroundColor: "#052f37",
+  },
+};
 
-  let videoGrid;
+ReactModal.setAppElement("#app");
 
-  useEffect(() => {
-    videoGrid = document.getElementById("video-grid");
-  });
+const Home = () => {
+  const [openNewRoomModal, setNewRoomModal] = useState(false);
+  const [openProfileModal, setProfileModal] = useState(appStore.newUser);
 
-  const socket = io("http://localhost:3000");
+  const closeModal = (type) => {
+    if (type === "profile") {
+      setProfileModal(false);
+    } else if (type === "room") {
+      setNewRoomModal(false);
+    }
+  };
 
-  const peers = {};
-
-  socket.on("user-disconnected", (userId) => {
-    if (peers[userId]) peers[userId].close();
-  });
-
-  function connectToNewUser(userId, stream, myPeer) {
-    const call = myPeer.call(userId, stream);
-    const video = document.createElement("video");
-    call.on("stream", (userVideoStream) => {
-      addVideoStream(video, userVideoStream);
-    });
-    call.on("close", () => {
-      video.remove();
-    });
-
-    peers[userId] = call;
-  }
-
-  function addVideoStream(video, stream) {
-    video.srcObject = stream;
-    video.addEventListener("loadedmetadata", () => {
-      video.play();
-    });
-    videoGrid.append(video);
-  }
-
-  function createRoom() {
-    const roomIdToJoin = joinRoomId || roomId || uuid();
-    setRoom(roomIdToJoin);
-    const myVideo = document.createElement("video");
-    const myPeer = new Peer();
-
-    myPeer.on("open", (id) => {
-      socket.emit("join-room", roomIdToJoin, id);
-    });
-
-    myVideo.muted = true;
-    navigator.mediaDevices
-      .getUserMedia({
-        video: true,
-        audio: true,
-      })
-      .then((stream) => {
-        addVideoStream(myVideo, stream);
-
-        myPeer.on("call", (call) => {
-          call.answer(stream);
-          const video = document.createElement("video");
-          call.on("stream", (userVideoStream) => {
-            addVideoStream(video, userVideoStream);
-          });
-        });
-
-        socket.on("user-connected", (userId) => {
-          connectToNewUser(userId, stream, myPeer);
-        });
-      });
-  }
-  function joinRoom() {
-    createRoom();
-  }
   return (
-    <div>
-      <h1>Hello There!</h1>
-      <div>
-        <h4>RoomID: {roomId}</h4>
-        <button onClick={createRoom}>Create Room</button>
-        <div style={{ margin: "8px 0" }}>
-          <input
-            type="text"
-            value={joinRoomId}
-            onChange={(e) => setJoinRoomId(e.target.value)}
-          />
-          <button onClick={joinRoom}>Join Room</button>
-        </div>
+    <div className="homepage">
+      <div className="create-room-action">
+        <Button palette="primary" onClick={() => setNewRoomModal(true)}>
+          <Text>Create Room</Text>
+        </Button>
       </div>
-      <div id="video-grid"></div>
+      {appStore.rooms.length > 0 && <RoomList list={appStore.rooms} />}
+      <ReactModal
+        isOpen={openProfileModal}
+        ariaHideApp={false}
+        style={customStyles}
+        contentLabel={"Update Profile"}
+      >
+        <NewProfileConfig close={closeModal} />
+      </ReactModal>
+      <ReactModal
+        isOpen={openNewRoomModal}
+        ariaHideApp={false}
+        style={customStyles}
+        contentLabel={"Create New Room"}
+      >
+        <NewRoomConfig close={closeModal} />
+      </ReactModal>
     </div>
   );
 };
 
-export default App;
+export default view(Home);
