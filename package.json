@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Awesome Realtime Collaboration",
   "repository": "git@github.com:asanteb/yux.git",
+  "main": "frontend/index.html",
   "source": "frontend/index.html",
   "author": "asanteb <asante@geekenforcer.com>",
   "license": "MIT",
