@@ -3,7 +3,6 @@ import { Text, Button } from "@arwes/core";
 import ReactModal from "react-modal";
 import RoomList from "./components/RoomList";
 import NewRoomConfig from "./components/NewRoomConfig";
-import NewProfileConfig from "./components/NewProfileConfig";
 import { view } from "@risingstack/react-easy-state";
 import appStore from "./store";
 
@@ -24,14 +23,9 @@ ReactModal.setAppElement("#app");
 
 const Home = () => {
   const [openNewRoomModal, setNewRoomModal] = useState(false);
-  const [openProfileModal, setProfileModal] = useState(appStore.newUser);
 
-  const closeModal = (type) => {
-    if (type === "profile") {
-      setProfileModal(false);
-    } else if (type === "room") {
-      setNewRoomModal(false);
-    }
+  const closeModal = () => {
+    setNewRoomModal(false);
   };
 
   return (
@@ -42,14 +36,6 @@ const Home = () => {
         </Button>
       </div>
       {appStore.rooms.length > 0 && <RoomList list={appStore.rooms} />}
-      <ReactModal
-        isOpen={openProfileModal}
-        ariaHideApp={false}
-        style={customStyles}
-        contentLabel={"Update Profile"}
-      >
-        <NewProfileConfig close={closeModal} />
-      </ReactModal>
       <ReactModal
         isOpen={openNewRoomModal}
         ariaHideApp={false}

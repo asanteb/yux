@@ -1,7 +1,8 @@
-import { useState, useEffect } from "react";
-import { Text, Card, Button, FrameBox } from "@arwes/core";
+import { useState } from "react";
+import { Text, Card, Button } from "@arwes/core";
 import { view } from "@risingstack/react-easy-state";
 import appStore from "../store";
+import { randomNameGenerator } from "../modules/text-generator";
 
 import {
   randomAvatarGenerator,
@@ -19,8 +20,14 @@ const NewProfileConfig = ({ close }) => {
     //  Clear file input el.value = null;
   };
 
+  const generate = () => {
+    setName(randomNameGenerator());
+    setAvatar(randomAvatarGenerator());
+  };
+
   const saveSettings = () => {
     appStore.updateProfile({ name, avatar });
+    close();
   };
 
   return (
@@ -34,8 +41,11 @@ const NewProfileConfig = ({ close }) => {
         title="Update User Profile"
         options={
           <div>
-            <Button palette="error" onClick={() => close("profile")}>
+            <Button palette="error" onClick={() => close()}>
               <Text>Cancel</Text>
+            </Button>
+            <Button palette="secondary" onClick={() => generate()}>
+              <Text>Generate</Text>
             </Button>
             <Button palette="success" onClick={() => saveSettings()}>
               <Text>Save Profile</Text>

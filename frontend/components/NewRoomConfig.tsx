@@ -5,6 +5,11 @@ import {
   encodeImageFileAsURL,
 } from "../modules/image-generator";
 
+import {
+  randomRoomNameGenerator,
+  randomDescriptionGenerator,
+} from "../modules/text-generator";
+
 const NewRoomConfig = ({ close }) => {
   const [roomName, setRoomName] = useState("");
   const [description, setDescription] = useState("");
@@ -13,6 +18,12 @@ const NewRoomConfig = ({ close }) => {
   const uploadImage = (el) => {
     encodeImageFileAsURL(el).then((img) => setRoomImage(img as string));
     //  Clear file input el.value = null;
+  };
+
+  const generate = () => {
+    setRoomName(randomRoomNameGenerator());
+    setDescription(randomDescriptionGenerator());
+    setRoomImage(randomRoomImageGenerator());
   };
 
   return (
@@ -26,8 +37,11 @@ const NewRoomConfig = ({ close }) => {
         title="Create New Room"
         options={
           <div>
-            <Button palette="error" onClick={() => close("room")}>
+            <Button palette="error" onClick={() => close()}>
               <Text>Cancel</Text>
+            </Button>
+            <Button palette="secondary" onClick={() => generate()}>
+              <Text>Generate</Text>
             </Button>
             <Button palette="success">
               <Text>Create Room</Text>

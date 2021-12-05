@@ -47,9 +47,13 @@ body,
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
-
+.link:hover {
+  cursor: pointer;
+  color: #ffa76c;
+}
 .source-code-link {
   color: unset;
+  margin-right: 24px;
 }
 
 .source-code-link:hover {

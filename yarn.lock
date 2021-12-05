@@ -7409,6 +7409,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"unique-names-generator@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "unique-names-generator@npm:4.6.0"
+  checksum: c28968845a0ee5fc607c079788efc0e6cb0e8526d6d60c9ffb9ac51404a147eb9f94201280f2ded0896a1e402e1fd802b40ffa0f94de7c617784cd7ae4b6386c
+  languageName: node
+  linkType: hard
+
 "unique-slug@npm:^2.0.0":
   version: 2.0.2
   resolution: "unique-slug@npm:2.0.2"
@@ -7828,6 +7835,7 @@ __metadata:
     react-router-dom: ^6.0.2
     socket.io: ^4.4.0
     socket.io-client: ^4.4.0
+    unique-names-generator: ^4.6.0
     uuid: ^8.3.2
   languageName: unknown
   linkType: soft
