@@ -7,11 +7,9 @@ import ShortUniqueId from "short-unique-id";
 const shortUid = new ShortUniqueId({ length: 10 });
 
 const URL =
-  window.location.hostname === "localhost"
-    ? "http://localhost:3000"
-    : "https://yux.watch";
+  window.location.hostname === "localhost" ? "http://localhost:3000" : "/";
 
-export default store({
+const appStore = store({
   id: "",
   name: "",
   avatar: "",
@@ -76,3 +74,7 @@ export default store({
     this.roomConfig = {};
   },
 });
+
+window.appStore = appStore;
+
+export default appStore;

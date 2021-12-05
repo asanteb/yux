@@ -66,6 +66,12 @@ body,
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
 }
+.room-controls {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  // border-top: 3px solid;
+}
 .video-container {
   padding: 24px;
 }
@@ -93,13 +99,25 @@ body,
 
 #video-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 400px);
-  grid-auto-rows: 400px;
+  grid-template-columns: repeat(auto-fill, 450px);
+  grid-auto-rows: 310px;
+  justify-content: center;
+  margin-bottom: 36px;
 }
-
+.video-container .video-item {
+  padding: 24px;
+}
+.video-container {
+  height: 100%;
+  min-width: calc(100% - 1000px);
+  max-width: calc(100% - 400px);
+}
 .video-container video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  margin-bottom: -6px !important;
+}
+.video-style {
   border: 3px solid;
 }

@@ -40,7 +40,12 @@ const roomPresence = (roomId, socket) => {
 
   socket.emit("room-presence", {
     ...room,
-    users: room.users.map((v) => v.peerId),
+    users: room.users.map(({ peerId, userName }) => ({ peerId, userName })),
+  });
+
+  socket.to(roomId).emit("room-presence", {
+    ...room,
+    users: room.users.map(({ peerId, userName }) => ({ peerId, userName })),
   });
 };
 
@@ -83,6 +88,7 @@ const joinHandler = ({
   socket,
   peerId,
   userToken,
+  userName,
   name,
   description,
   image,
@@ -95,7 +101,7 @@ const joinHandler = ({
     const user = state.users.find((v) => v.userToken === userToken);
     state.rooms.push({
       id,
-      users: [{ ...user, peerId }],
+      users: [{ ...user, userName, peerId }],
       name,
       image,
       description,
@@ -109,7 +115,7 @@ const joinHandler = ({
     const room = state.rooms[roomIdx];
     const user = state.users.find((v) => v.userToken === userToken);
     const roomUsers = [...room.users];
-    roomUsers.push({ ...user, peerId });
+    roomUsers.push({ ...user, userName, peerId });
     state.rooms.splice(roomIdx, 1, { ...room, users: roomUsers });
   }
   console.log(`${socket.id} connected to room:`, id);
@@ -148,22 +154,33 @@ io.on("connection", (socket) => {
   socket.on("join-room", (payload) => {
     const room = state.rooms.find((v) => v.id === payload.id);
 
+    roomPresence(payload.id, socket);
+
     if (room?.users.find((v) => v.socketId === socket.id)) {
       console.log("User has already joined the room.");
       return;
     }
 
     joinHandler({ ...payload, socket, io });
-    roomPresence(payload.id, socket);
     socket.join(payload.id);
     socket.to(payload.id).emit("user-connected", payload.peerId);
+    roomPresence(payload.id, socket);
+    // setTimeout(() => roomPresence(payload.id, socket), 5000);
 
     socket.on("disconnect", () => {
       socket.to(payload.id).emit("user-disconnected", payload.peerId);
       removeUserFromRoom(payload.id, payload.userToken, io);
+      roomPresence(payload.id, socket);
       console.log(`User: ${socket.id} left room: ${payload.id}`);
     });
   });
+
+  socket.on(
+    "viewer-to-caller",
+    ({ userToken, roomId, oldPeerId, newPeerId }) => {
+      socket.to(roomId).emit("viewer-joined-call", { oldPeerId, newPeerId });
+    }
+  );
 
   socket.on("set-user-presence", ({ userToken, uniquePresence }) => {
     let token = userToken;
