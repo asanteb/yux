@@ -1,8 +1,8 @@
 import React from "react";
 import { Button, Figure, FrameCorners, Text } from "@arwes/core";
-import { omit } from "lodash";
 import Peer from "peerjs";
 import { view } from "@risingstack/react-easy-state";
+import Chat from "./components/Chat";
 import appStore from "./store";
 
 declare global {
@@ -354,7 +354,7 @@ class Room extends React.Component<any, any> {
   }
   render() {
     return (
-      <div>
+      <div className="main-room-container">
         <div className="room-header">
           <div className="header-list">
             <h1>
@@ -372,41 +372,44 @@ class Room extends React.Component<any, any> {
           </div>
           <Figure src={this.state.roomImage} alt="Room Image"></Figure>
         </div>
-        <div className="video-container">
-          <div id="video-grid">
-            {this.state.videoList.map((v, idx) => (
-              <div className="video-item" key={idx}>
-                {
-                  this.state.peers.find((peer) => peer.id === v.peerId)
-                    ?.userName
-                }
-                {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
-                {/* @ts-ignore */}
-                <FrameCorners
-                  cornerWidth={1}
-                  cornerLength={20}
-                  showContentLines
-                  contentLineWidth={1}
-                  hover
-                  palette="secondary"
-                >
-                  <div id={v.peerId}>{v.userName}</div>
-                </FrameCorners>
-              </div>
-            ))}
+        <div className="room-content">
+          <div className="video-container">
+            <div id="video-grid">
+              {this.state.videoList.map((v, idx) => (
+                <div className="video-item" key={idx}>
+                  {
+                    this.state.peers.find((peer) => peer.id === v.peerId)
+                      ?.userName
+                  }
+                  {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
+                  {/* @ts-ignore */}
+                  <FrameCorners
+                    cornerWidth={1}
+                    cornerLength={20}
+                    showContentLines
+                    contentLineWidth={1}
+                    hover
+                    palette="secondary"
+                  >
+                    <div id={v.peerId}>{v.userName}</div>
+                  </FrameCorners>
+                </div>
+              ))}
+            </div>
+            <div className="room-controls">
+              {this.state.viewer && !this.state.retry && (
+                <Button onClick={() => this.joinCall()}>
+                  <Text>Join Room</Text>
+                </Button>
+              )}
+              {this.state.retry && (
+                <Button onClick={() => this.rejoinRoom()}>
+                  <Text>Rejoin Room</Text>
+                </Button>
+              )}
+            </div>
           </div>
-          <div className="room-controls">
-            {this.state.viewer && !this.state.retry && (
-              <Button onClick={() => this.joinCall()}>
-                <Text>Join Room</Text>
-              </Button>
-            )}
-            {this.state.retry && (
-              <Button onClick={() => this.rejoinRoom()}>
-                <Text>Rejoin Room</Text>
-              </Button>
-            )}
-          </div>
+          <Chat roomId={this.state.roomId} />
         </div>
       </div>
     );

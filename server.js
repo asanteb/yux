@@ -2,13 +2,18 @@ const jwt = require("jwt-simple");
 const express = require("express");
 const app = express();
 const server = require("http").Server(app);
-const io = require("socket.io")(server, {
-  // cors: {
-  //   origin: "http://localhost:1234",
-  //   methods: ["GET", "POST"],
-  // },
-});
-const { v4: uuidV4 } = require("uuid");
+const io = require("socket.io")(
+  server,
+  process.env.NODE_ENV !== "prod"
+    ? {
+        cors: {
+          origin: "http://localhost:1234",
+          methods: ["GET", "POST"],
+        },
+      }
+    : {}
+);
+const { v4: uuid } = require("uuid");
 
 app.use(express.static("dist"));
 
@@ -169,7 +174,6 @@ io.on("connection", (socket) => {
     socket.join(payload.id);
     socket.to(payload.id).emit("user-connected", payload.peerId);
     roomPresence(payload.id, socket);
-    // setTimeout(() => roomPresence(payload.id, socket), 5000);
 
     socket.on("disconnect", () => {
       socket.to(payload.id).emit("user-disconnected", payload.peerId);
@@ -185,6 +189,18 @@ io.on("connection", (socket) => {
       socket.to(roomId).emit("viewer-joined-call", { oldPeerId, newPeerId });
     }
   );
+
+  socket.on("send-room-message", ({ userName, avatar, message, roomId }) => {
+    console.log("message sent!", roomId);
+    socket.to(roomId).emit("room-message", {
+      userName,
+      avatar,
+      message,
+      date: new Date(),
+      id: uuid(),
+      socketId: socket.id,
+    });
+  });
 
   socket.on("set-user-presence", ({ userToken, uniquePresence }) => {
     let token = userToken;
