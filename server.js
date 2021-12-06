@@ -143,17 +143,23 @@ const removeUserFromRoom = (id, userToken, io) => {
 
   const users = room.users.filter((_, idx) => idx !== userIdx);
 
-  if (users.length) {
-    state.rooms.splice(roomIdx, 1, {
-      ...room,
-      users,
-    });
-  } else {
-    state.rooms.splice(roomIdx, 1);
-    console.log("Room has been deleted due to no users");
-  }
+  state.rooms.splice(roomIdx, 1, {
+    ...room,
+    users,
+  });
+
   io.emit("web-presence", webPresence());
 };
+
+setInterval(() => {
+  state.rooms.forEach((room, idx) => {
+    if (!room.users.length) {
+      state.rooms.splice(idx, 1);
+      console.log(`Room: ${room.id} has been deleted due to no users`);
+    }
+  });
+  io.emit("web-presence", webPresence());
+}, 1000 * 60 * 3);
 
 io.on("connection", (socket) => {
   updateSockets(socket);
@@ -191,7 +197,6 @@ io.on("connection", (socket) => {
   );
 
   socket.on("send-room-message", ({ userName, avatar, message, roomId }) => {
-    console.log("message sent!", roomId);
     socket.to(roomId).emit("room-message", {
       userName,
       avatar,

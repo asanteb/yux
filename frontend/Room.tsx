@@ -187,7 +187,6 @@ class Room extends React.Component<any, any> {
 
   setupDevicesAndStreams(peerId, peer, viewer = false) {
     appStore.socket.on("room-presence", (room) => {
-      // console.log("Room updated", room);
       this.setState({
         roomName: room.name,
         roomDescription: room.description,
