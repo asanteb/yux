@@ -27,6 +27,11 @@ const NewProfileConfig = ({ close }) => {
 
   const saveSettings = () => {
     appStore.updateProfile({ name, avatar });
+
+    if (window.location.pathname === "/room") {
+      window.location.reload();
+    }
+
     close();
   };
 

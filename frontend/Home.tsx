@@ -30,9 +30,9 @@ const Home = () => {
 
   return (
     <div className="homepage">
-      <div className="create-room-action">
+      <div className="create-room-action" style={{ margin: "16px" }}>
         <Button palette="primary" onClick={() => setNewRoomModal(true)}>
-          <Text>Create Room</Text>
+          <Text>Create New Room</Text>
         </Button>
       </div>
       {appStore.rooms.length > 0 && <RoomList list={appStore.rooms} />}
