@@ -30,6 +30,12 @@ const Home = () => {
 
   return (
     <div className="homepage">
+      <div style={{ textAlign: "center" }}>
+        <Text>
+          Yux.watch is a free open source cyberpunk video hangout. Create a room
+          and try for yourself
+        </Text>
+      </div>
       <div className="create-room-action" style={{ margin: "16px" }}>
         <Button palette="primary" onClick={() => setNewRoomModal(true)}>
           <Text>Create New Room</Text>
