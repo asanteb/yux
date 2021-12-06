@@ -40,6 +40,13 @@ body,
   display: flex;
   justify-content: center;
 }
+.copy-style {
+  margin-left: 4px;
+}
+.copy-style:hover {
+  cursor: pointer;
+  color: #ffa76c;
+}
 .room {
   padding: 10px;
 }

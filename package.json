@@ -29,6 +29,7 @@
     "@types/react-router-dom": "^5.3.2",
     "@types/uuid": "^8.3.3",
     "animejs": "3",
+    "copy-to-clipboard": "^3.3.1",
     "date-fns": "^2.27.0",
     "express": "^4.17.1",
     "howler": "2.2",

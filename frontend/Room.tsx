@@ -4,6 +4,7 @@ import Peer from "peerjs";
 import { view } from "@risingstack/react-easy-state";
 import Chat from "./components/Chat";
 import appStore from "./store";
+import copy from "copy-to-clipboard";
 
 declare global {
   interface Window {
@@ -61,6 +62,10 @@ class Room extends React.Component<any, any> {
       }
       this.removeStaleVideo();
     });
+  }
+
+  copyRoomLink() {
+    copy(window.location.href);
   }
 
   removeStaleVideo() {
@@ -366,8 +371,14 @@ class Room extends React.Component<any, any> {
               {this.state.roomDescription}
             </h4>
             <h4>
-              <span className="header-attr-style">RoomID:</span>{" "}
+              <span className="header-attr-style">Room ID:</span>{" "}
               {this.state.roomId}
+              <span
+                className="material-icons copy-style"
+                onClick={() => this.copyRoomLink()}
+              >
+                content_copy
+              </span>
             </h4>
           </div>
           <Figure src={this.state.roomImage} alt="Room Image"></Figure>
