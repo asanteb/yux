@@ -377,10 +377,6 @@ class Room extends React.Component<any, any> {
             <div id="video-grid">
               {this.state.videoList.map((v, idx) => (
                 <div className="video-item" key={idx}>
-                  {
-                    this.state.peers.find((peer) => peer.id === v.peerId)
-                      ?.userName
-                  }
                   {/* eslint-disable-next-line @typescript-eslint/ban-ts-comment */}
                   {/* @ts-ignore */}
                   <FrameCorners
@@ -391,7 +387,23 @@ class Room extends React.Component<any, any> {
                     hover
                     palette="secondary"
                   >
-                    <div id={v.peerId}>{v.userName}</div>
+                    <div className="video-wrapper" id={v.peerId}>
+                      <div className="video-overlay">
+                        <Text
+                          as="h4"
+                          animator={{
+                            manager: "stagger",
+                            duration: { enter: 200, exit: 200 },
+                          }}
+                        >
+                          {
+                            this.state.peers.find(
+                              (peer) => peer.id === v.peerId
+                            )?.userName
+                          }
+                        </Text>
+                      </div>
+                    </div>
                   </FrameCorners>
                 </div>
               ))}
